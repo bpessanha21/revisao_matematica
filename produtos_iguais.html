@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz: Produtos Iguais</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    .question { margin-bottom: 20px; padding: 10px; background: #fff; border-radius: 5px; box-shadow: 0 0 5px #ccc; }
+    .question h3 { margin: 0 0 10px; }
+    .options button { display: block; margin: 5px 0; padding: 8px; width: 100%; border: none; border-radius: 4px; background: #eee; cursor: pointer; }
+    .options button.correct { background-color: #c8e6c9; }
+    .options button.incorrect { background-color: #ffcdd2; }
+  </style>
+</head>
+<body>
+
+  <h1>Quiz: Produtos Iguais</h1>
+
+  <div id="quiz-container"></div>
+
+  <script>
+    const quiz = [
+      { pergunta: "Qual das multiplicações tem o mesmo produto que 2 × 6?", opcoes: ["3 × 4", "1 × 12", "5 × 2", "2 × 5"], resposta: 1 },
+      { pergunta: "Qual destas expressões tem o mesmo resultado que 4 × 3?", opcoes: ["2 × 6", "5 × 2", "3 × 3", "6 × 2"], resposta: 0 },
+      { pergunta: "Qual das opções tem o mesmo produto que 5 × 2?", opcoes: ["4 × 3", "2 × 5", "3 × 3", "6 × 1"], resposta: 1 },
+      { pergunta: "Qual destas multiplicações tem o mesmo resultado que 3 × 4?", opcoes: ["2 × 6", "6 × 2", "1 × 12", "4 × 3"], resposta: 3 },
+      { pergunta: "Qual das multiplicações tem o mesmo produto que 6 × 2?", opcoes: ["3 × 4", "2 × 5", "4 × 2", "1 × 6"], resposta: 0 },
+      { pergunta: "Qual destas expressões tem o mesmo produto que 2 × 4?", opcoes: ["1 × 8", "3 × 3", "5 × 2", "4 × 3"], resposta: 0 },
+      { pergunta: "Qual das multiplicações tem o mesmo resultado que 3 × 5?", opcoes: ["2 × 7", "5 × 3", "4 × 4", "6 × 2"], resposta: 1 },
+      { pergunta: "Qual destas expressões tem o mesmo produto que 2 × 3?", opcoes: ["1 × 6", "3 × 2", "4 × 2", "2 × 2"], resposta: 1 },
+      { pergunta: "Qual das multiplicações tem o mesmo resultado que 4 × 2?", opcoes: ["2 × 4", "3 × 3", "1 × 6", "5 × 2"], resposta: 0 },
+      { pergunta: "Qual destas expressões tem o mesmo produto que 3 × 2?", opcoes: ["2 × 3", "4 × 2", "1 × 5", "3 × 3"], resposta: 0 }
+    ];
+
+    const container = document.getElementById("quiz-container");
+
+    quiz.forEach((q, index) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>${index + 1}. ${q.pergunta}</h3>`;
+      const optionsDiv = document.createElement("div");
+      optionsDiv.className = "options";
+
+      q.opcoes.forEach((opcao, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = opcao;
+        btn.onclick = () => {
+          const buttons = optionsDiv.querySelectorAll("button");
+          buttons.forEach(b => b.disabled = true);
+          if (i === q.resposta) {
+            btn.classList.add("correct");
+          } else {
+            btn.classList.add("incorrect");
+            buttons[q.resposta].classList.add("correct");
+          }
+        };
+        optionsDiv.appendChild(btn);
+      });
+
+      div.appendChild(optionsDiv);
+      container.appendChild(div);
+    });
+  </script>
+
+</body>
+</html>
